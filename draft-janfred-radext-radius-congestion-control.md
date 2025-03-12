@@ -8,13 +8,13 @@ category: exp
 docname: draft-janfred-radext-radius-congestion-control-latest
 submissiontype: IETF
 v: 3
-area: "Security"
+area: ""
 workgroup: "RADIUS EXTensions"
 keyword:
  - RADIUS
 venue:
   group: "RADIUS EXTensions"
-  type: "Working Group"
+  type: ""
   mail: "radext@ietf.org"
 
 author:
