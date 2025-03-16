@@ -267,11 +267,6 @@ Roughly the following things should be allocated:
 
 --- back
 
-# Acknowledgments
-{:numbered="false"}
-
-TODO acknowledge.
-
 # Document Status
 
 Note to RFC Editor: Remove this section before publication
@@ -281,3 +276,8 @@ Note to RFC Editor: Remove this section before publication
 draft-janfred-radext-radius-congestion-control-00:
 
 > * Initial draft version
+
+# Acknowledgments
+{:numbered="false"}
+
+TODO acknowledge.
