@@ -60,11 +60,11 @@ This method can also be used to slow down clients that immediately retry the aut
 
 When a home server knows that an authentication of this client cannot succeed (for example because it used an expired certificate with EAP-TLS), and the client keeps retrying, any RADIUS actor along the proxy chain could generate a reject for this specific user.
 
-Pushing these countermeasures to the the earliest possible proxy inside the proxy chain has multiple advantages over rejecting it at the home server.
+Pushing these countermeasures to the the earliest possible RADIUS Instance inside the proxy chain has multiple advantages over rejecting it at the home server.
 First, it reduces the load on all proxies in the proxy chain, since they do not need to forward traffic that will get rejected anyway.
 Secondly, when the response should get delayed, pushing this delay as far down the proxy chain prevents RADIUS retransmissions.
 When the RADIUS proxy already has the response, it then does not need to proxy the retransmitted RADIUS packets, which reduces the load for the RADIUS proxies in the later proxy chain.
-Instead, the RADIUS proxy just ignores the retransmission, since it already has an answer for this RADIUS packet, it just delays its response.
+Instead, the RADIUS proxy just ignores the retransmission, since it already has an answer for this RADIUS packet, but the answer is just delayed.
 
 # Conventions and Definitions
 
@@ -181,9 +181,11 @@ In this case the RADIUS Proxy MUST become the Enforcing Instance, since any RADI
 If the missing attribute was not added by the RADIUS Proxy, the RADIUS Proxy SHOULD remove the Request-Block attribute before forwarding the packet to the next RADIUS Client.
 In this case, the missing attribute was added by a RADIUS Instance not capable of Response-Block and positioned between the current and a later Response-Block capable RADIUS Instance in the RADIUS Proxy Chain of the RADIUS Request.
 Since we have no RADIUS-native method to signal this condition back, the best approach to deal with this is to ignore the block request.
-By removing the corresponding attribute, we reduce the load on later RADIUS Instances on the RAIDUS Proxy Chain for the RADIUS Response.
-While this removes the Response-Block functionality completely without signalling back to the capable RADIUS Instances earlier in the Response Proxy Chain, there is no easy solution to this problem.
+By removing the Request-Block attribute from the response, we reduce the load on later RADIUS Instances on the RAIDUS Proxy Chain for the RADIUS Response, since they do not need to perform the attribute checks.
+This removes the Response-Block functionality completely without signalling back to the capable RADIUS Instances earlier in the Response Proxy Chain.
+There is no easy solution to this problem, but this is considered the best solution compared to complicated signalling mechanisms that would only be beneficial in a limited number of use cases and increase the complexity of implementations.
 We therefore rely on the RADIUS server not to request a block based on attributes that may have been added during the proxy chain.
+See {{operational_recommendations}} for further discussion.
 
 
 ### Enforcing Instance
@@ -198,7 +200,7 @@ An Enforcing Instance for the Response-Delay MUST delay the response it received
 If the Enforcing Instance is not a RADIUS Proxy, any action that would normally follow the reception of the RADIUS response MUST be delayed, i.e. the Enforcing Instance acts as if the RADIUS response has not been received until the delay timespan has passed.
 
 An Enforcing Instance MUST NOT retransmit the RADIUS Request again to the next hop RADIUS Server if it already received a RADIUS response with the Response-Delay attribute.
-If the Enforcing Instance is a RADIUS Proxy and the RADIUS Client retransmits the RADIUS request, the Enforcing Instance SHOULD silently discard the retransmission.
+If the Enforcing Instance is a RADIUS Proxy and the RADIUS Client retransmits the RADIUS request, the Enforcing Instance MUST silently discard the retransmission.
 This only applies for Enforcing Instances, any other RADIUS Proxy will still follow its normal retransmission policy.
 
 The Enforcing Instance SHOULD delay the RADIUS response according to the time span in the Response-Delay attributes, however the Enforcing Instance MAY have an upper limit for the delaying response timespan.
@@ -224,7 +226,7 @@ TODO: From here only stub.
 General algorithm:
 * create a list of attributes
 * attributes that appear multiple times in the request must be included multiple times in the list as well
-* for extended attributes: add every attribute to the list with the prefix in the request-block-extended-attribute (but skip over the length byte in the attribute in the request
+* for extended attributes: add every attribute to the list with the prefix in the request-block-extended-attribute (but skip over the length byte in the attribute in the request)
 * When a request is received with attributes matching the list (every attributes must be present and match): send an Access-Reject with an Error-Cause attribute set to value TBD4 (Request ratelimited)
 
 The considerations for upper limit should probably also apply, similar to the response-delay, but with way higher defaults
@@ -235,6 +237,33 @@ Maybe add functionality that the block is automatically timed out after a time w
 
 TODO Security
 
+# Recommendations for Operators
+{: #operational_recommendations }
+
+TODO.
+
+Elements to consider:
+* When should be delayed?
+  * nearing ID-Exhaustion due to many ongoing EAP sessions, add small delays
+  * on high server load add small delay
+  * add a delay for a reject. (FreeRADIUS has the option already, let's push this to the edge instead)
+* When should the home server request a block for how long?
+  * outer username in EAP wrong - probably hours
+  * inner username in EAP does not exist (and has several failed attempts shortly) - few minutes (outer username may stay the same if user changes only inner username)
+  * username points to someone that is no longer eligible for access - probably hours
+* When should a proxy request a block?
+  * repeated requests immediately after a reject with impact on the network - seconds to minutes
+  * realm in username is unroutable - minutes to hours
+* What are good and bad choices for attributes?
+  * good
+    * User-Name. Always.
+    * Calling-Station-ID
+    * Called-Station-ID (i.e. only block phone on this specific access point)
+    * NAS-Identifier, NAS-IPAddr, NAS-IPv6Addr (only block from this specific NAS, helpful in roaming scenarios)
+  * bad
+    * Proxy-State (added by proxies that might not understand it. MUST NOT be used)
+    * Any other proxy-specific attribute
+    * Only User-Name (may be too broad in case of anonymous identities)
 
 # IANA Considerations
 
