@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-06-08T01:25:57.714772+00:00",
+  "timestamp": "2025-06-10T01:20:25.020361+00:00",
   "repo": "Janfred/draft-janfred-radext-radius-congestion-control",
   "labels": [
     {
@@ -49,6 +49,23 @@
       "color": "ffffff"
     }
   ],
-  "issues": [],
+  "issues": [
+    {
+      "number": 1,
+      "id": "I_kwDOOHfrJ866lQ_I",
+      "title": "Disconnect-Request, too",
+      "url": "https://github.com/Janfred/draft-janfred-radext-radius-congestion-control/issues/1",
+      "state": "OPEN",
+      "author": "alandekok",
+      "authorAssociation": "NONE",
+      "assignees": [],
+      "labels": [],
+      "body": "  These \"cache reject\" attributes should likely be allowed in a Disconnect-Request packet, too.\n\nThat way you can not only kick someone offline, but also keep them offline. \n\nUsing Disconnect-Request avoids another round of authentication.  It's an optimization, and not strictly required.",
+      "createdAt": "2025-06-09T13:33:25Z",
+      "updatedAt": "2025-06-09T13:33:25Z",
+      "closedAt": null,
+      "comments": []
+    }
+  ],
   "pulls": []
 }
