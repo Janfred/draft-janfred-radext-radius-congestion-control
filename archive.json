@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-10-16T01:13:59.359477+00:00",
+  "timestamp": "2025-10-19T01:21:58.001431+00:00",
   "repo": "Janfred/draft-janfred-radext-radius-congestion-control",
   "labels": [
     {
@@ -63,6 +63,22 @@
       "body": "  These \"cache reject\" attributes should likely be allowed in a Disconnect-Request packet, too.\n\nThat way you can not only kick someone offline, but also keep them offline. \n\nUsing Disconnect-Request avoids another round of authentication.  It's an optimization, and not strictly required.",
       "createdAt": "2025-06-09T13:33:25Z",
       "updatedAt": "2025-06-09T13:33:25Z",
+      "closedAt": null,
+      "comments": []
+    },
+    {
+      "number": 2,
+      "id": "I_kwDOOHfrJ87R3MZJ",
+      "title": "Error-Cause = Unauthorized",
+      "url": "https://github.com/Janfred/draft-janfred-radext-radius-congestion-control/issues/2",
+      "state": "OPEN",
+      "author": "alandekok",
+      "authorAssociation": "NONE",
+      "assignees": [],
+      "labels": [],
+      "body": "Based on feedback from operators, there is a use-case for rejecting authentic users, who are not authorized for this particular network.\n\nRight now when this happens, the supplicant just tries to authenticate again and again.  This process leads to significant increase in authentication loads.\n\nIf we also have  `Error-Cause = Unauthorized`, then we can ask the visited network to reject the user for a period of time.  This will happen only at that particular visited network, and won't affect the users ability to access other networks.\n",
+      "createdAt": "2025-10-16T08:43:14Z",
+      "updatedAt": "2025-10-16T08:43:14Z",
       "closedAt": null,
       "comments": []
     }
