@@ -260,6 +260,7 @@ Elements to consider:
     * Calling-Station-ID
     * Called-Station-ID (i.e. only block phone on this specific access point)
     * NAS-Identifier, NAS-IPAddr, NAS-IPv6Addr (only block from this specific NAS, helpful in roaming scenarios)
+    * Operator-Name
   * bad
     * Proxy-State (added by proxies that might not understand it. MUST NOT be used)
     * Any other proxy-specific attribute
@@ -301,6 +302,10 @@ Roughly the following things should be allocated:
 Note to RFC Editor: Remove this section before publication
 
 ## Change History
+
+draft-janfred-radext-radius-congestion-control-01:
+
+> * no significant changes
 
 draft-janfred-radext-radius-congestion-control-00:
 
