@@ -11,23 +11,22 @@
 This can lead to load problems, especially in a federated RADIUS proxy fabric.
 This document attempts to fix this. 
     " name="description">
-<meta content="xml2rfc 3.28.0" name="generator">
+<meta content="xml2rfc 3.31.0" name="generator">
 <meta content="RADIUS" name="keyword">
 <meta content="draft-janfred-radext-radius-congestion-control-latest" name="ietf.draft">
 <!-- Generator version information:
-  xml2rfc 3.28.0
-    Python 3.12.9
+  xml2rfc 3.31.0
+    Python 3.12.12
     ConfigArgParse 1.7
     google-i18n-address 3.1.1
     intervaltree 3.1.0
-    Jinja2 3.1.5
-    lxml 5.3.0
-    platformdirs 4.3.6
+    Jinja2 3.1.6
+    lxml 5.3.1
+    platformdirs 4.5.0
     pycountry 24.6.1
     PyYAML 6.0.2
-    requests 2.32.3
-    setuptools 70.3.0
-    wcwidth 0.2.13
+    requests 2.32.5
+    wcwidth 0.2.14
 -->
 <link href="draft-janfred-radext-radius-congestion-control.xml" rel="alternate" type="application/rfc+xml">
 <link href="#copyright" rel="license">
@@ -1046,11 +1045,11 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <thead><tr>
 <td class="left">Internet-Draft</td>
 <td class="center">RADIUS Congestion Mitigations</td>
-<td class="right">March 2025</td>
+<td class="right">October 2025</td>
 </tr></thead>
 <tfoot><tr>
 <td class="left">Rieckers</td>
-<td class="center">Expires 17 September 2025</td>
+<td class="center">Expires 23 April 2026</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1063,12 +1062,12 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <dd class="internet-draft">draft-janfred-radext-radius-congestion-control-latest</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2025-03-16" class="published">16 March 2025</time>
+<time datetime="2025-10-20" class="published">20 October 2025</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Experimental</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2025-09-17">17 September 2025</time></dd>
+<dd class="expires"><time datetime="2026-04-23">23 April 2026</time></dd>
 <dt class="label-authors">Author:</dt>
 <dd class="authors">
 <div class="author">
@@ -1117,7 +1116,7 @@ This document attempts to fix this.<a href="#section-abstract-1" class="pilcrow"
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 17 September 2025.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 23 April 2026.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1487,6 +1486,7 @@ By default, this upper limit <span class="bcp14">SHOULD</span> not be less than 
     * Calling-Station-ID
     * Called-Station-ID (i.e. only block phone on this specific access point)
     * NAS-Identifier, NAS-IPAddr, NAS-IPv6Addr (only block from this specific NAS, helpful in roaming scenarios)
+    * Operator-Name
   * bad
     * Proxy-State (added by proxies that might not understand it. <span class="bcp14">MUST NOT</span> be used)
     * Any other proxy-specific attribute
@@ -1627,12 +1627,22 @@ By default, this upper limit <span class="bcp14">SHOULD</span> not be less than 
         <h3 id="name-change-history">
 <a href="#appendix-A.1" class="section-number selfRef">A.1. </a><a href="#name-change-history" class="section-name selfRef">Change History</a>
         </h3>
-<p id="appendix-A.1-1">draft-janfred-radext-radius-congestion-control-00:<a href="#appendix-A.1-1" class="pilcrow">¶</a></p>
+<p id="appendix-A.1-1">draft-janfred-radext-radius-congestion-control-01:<a href="#appendix-A.1-1" class="pilcrow">¶</a></p>
 <ul class="normal ulEmpty">
 <li class="normal ulEmpty" id="appendix-A.1-2.1">
             <ul class="normal">
 <li class="normal" id="appendix-A.1-2.1.1.1">
-                <p id="appendix-A.1-2.1.1.1.1">Initial draft version<a href="#appendix-A.1-2.1.1.1.1" class="pilcrow">¶</a></p>
+                <p id="appendix-A.1-2.1.1.1.1">no significant changes<a href="#appendix-A.1-2.1.1.1.1" class="pilcrow">¶</a></p>
+</li>
+            </ul>
+</li>
+        </ul>
+<p id="appendix-A.1-3">draft-janfred-radext-radius-congestion-control-00:<a href="#appendix-A.1-3" class="pilcrow">¶</a></p>
+<ul class="normal ulEmpty">
+<li class="normal ulEmpty" id="appendix-A.1-4.1">
+            <ul class="normal">
+<li class="normal" id="appendix-A.1-4.1.1.1">
+                <p id="appendix-A.1-4.1.1.1.1">Initial draft version<a href="#appendix-A.1-4.1.1.1.1" class="pilcrow">¶</a></p>
 </li>
             </ul>
 </li>
